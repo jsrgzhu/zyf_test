@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation"
+                style="position: absolute;top: 0px;left: 80px;width:-webkit-calc(100% - 200px);z-index: 1">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <span style="font-size: xx-small;" class="navbar-brand">项目名称：{{ project.name }}</span>
+            <a class="navbar-brand" href="/project_list/">返回项目列表</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="/apis/{{ project.id }}">接口库</a></li>
+                <li><a href="/cases/{{ project.id }}/">用例库</a></li>
+                <li class="active"><a href="/project_set/{{ project.id }}/">项目设置</a></li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+    <br><br>
+    <div style="border-radius: 10px 10px 10px 10px;text-align: center;">
+        <h3>项目名称</h3><br>
+        <textarea id="name" style="width: 70%;" placeholder="{{ project.name }}" rows="4"></textarea><br><br>
+        <h3>备注</h3><br>
+        <textarea id="remark" style="width: 70%" placeholder="{{ project.remark }}" rows="4"></textarea><br><br>
+        <h3>其他创建者</h3><br>
+        <textarea id="other_user" style="width: 70%" placeholder="{{ project.other_user }}" rows="4"></textarea>
+    </div>
+    <br><br>
+    <button onclick="save_project_set('{{ project.id }}')" class="btn btn-primary btn-lg btn-block" style="margin-left: 15%;width: 70%;">保存</button>
+
+    <script>
+        function save_project_set(id) {
+            $.get('/save_project_set/'+id+'/',{
+                'name':document.getElementById('name').value,
+                'remark':document.getElementById('remark').value,
+                'other_user':document.getElementById('other_user').value,
+            },function (ret) {
+                alert('保存成功')
+            })
+        }
+    </script>
+
+</body>
+</html>
